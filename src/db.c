@@ -8,14 +8,16 @@ struct db *dballoc() {
 }
 
 
-struct db *addstring(struct db *database,
-                     char *value) {
+struct db *add(struct db *database,
+               char *value, int columnindex) {
     if (database == NULL) {
         database = dballoc();
-        database->value = strdup(value);
+        strcpy(database->value[columnindex], value);
+        //database->value[columnindex] = (char *)malloc(sizeof(value));
+        //database->value[columnindex] = strdup(value);
         database->next = NULL;
     } else {
-        database->next = addstring(database->next, value);
+        database->next = add(database->next, value, columnindex);
     }
     return database;
 }
