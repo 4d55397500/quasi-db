@@ -8,26 +8,46 @@ struct tnode *talloc(void) {
     return (struct tnode *) malloc(sizeof(struct tnode));
 }
 
-struct tnode *addtree(struct tnode *p, int col, struct db *rowptr) {
-    int cond;
-    char *s = rowptr->value[col];
-    if (p == NULL) {
-        p = talloc();
-        p->rowptr = rowptr;
-        //strcpy(p->value, s);
-        p->value = strdup(s);
-        //p->value = strdup(rowptr->value);
-        p->left = p->right = NULL;
-    } else if ((cond = strcmp(s, p->value)) == 0) {
-        if (p->rowptr == NULL){ //currently only index the first occurrence of a value
-            p->rowptr = rowptr;
-        }
+/**
+ * Add the database entry at the row given by `rowptr`, and
+ * the column given by `col`, to the tree index given by the
+ * passed pointer `p`.
+ */
+struct tnode *addnode(struct tnode *p, int col, struct db *rowptr) {
+    printf("Building index over column %d of database...\n", col);
+    p->rowptr = rowptr;
+    // if database row is null assumed nothing to add, return
+    if (rowptr == NULL) {
+        return p;
     }
-    else if ((cond = strcmp(s, p->value)) < 0)
-        p->left = addtree(p->left, col, rowptr);
-    else
-        p->right = addtree(p->right, col, rowptr);
+    char *s = rowptr->value[col];
+    // if database entry is null or the empty string nothing to add,
+    // return
+    if (s == NULL || sizeof(s) == 0) {
+        return p;
+    }
+    printf("Entry to be added: %s\n", s);
     return p;
+
+
+//    char *s = rowptr->value[col];
+//    if (p == NULL) {
+//        p = talloc();
+//        p->rowptr = rowptr;
+//        //strcpy(p->value, s);
+//        p->value = strdup(s);
+//        //p->value = strdup(rowptr->value);
+//        p->left = p->right = NULL;
+//    } else if ((strcmp(s, p->value)) == 0) {
+//        if (p->rowptr == NULL){ //currently only index the first occurrence of a value
+//            p->rowptr = rowptr;
+//        }
+//    }
+//    else if ((strcmp(s, p->value)) < 0)
+//        p->left = addtree(p->left, col, rowptr);
+//    else
+//        p->right = addtree(p->right, col, rowptr);
+//    return p;
 }
 
 void printnode(struct tnode *p) {
