@@ -3,7 +3,7 @@
 
 
 
-struct tnode **buildindices(struct db *database);
+struct tnode **buildindices(struct tnode **, struct db *);
 struct db *lookup(struct tnode *, char *);
 
 #endif // INDEX_H_

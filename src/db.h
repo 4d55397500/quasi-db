@@ -11,8 +11,9 @@ struct db {
 };
 
 struct db *dballoc();
-struct db *add(struct db *database, char *value, int columnindex);
-
+struct db *add(struct db *database, char *value, int rowindex,
+         int columnindex);
+void printdb(struct db *database);
 
 #endif
 

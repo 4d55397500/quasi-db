@@ -1,23 +1,31 @@
 #include <stddef.h>
 #include <string.h>
 #include <stdlib.h>
+#include <printf.h>
 #include "db.h"
 #include "tnode.h"
 
+struct tnode **indicesalloc() {
+    return (struct tnode **) malloc(NCOLUMNS * sizeof(struct tnode));
+}
 
-struct tnode **buildindices(struct db *database) {
-    struct tnode *indices[NCOLUMNS];
-    for (int i = 0; i < NCOLUMNS; i++) {
+// build indices over the specified columns
+struct tnode **buildindices(struct tnode **indices, struct db *database) {
+    indices = indicesalloc();
+    //struct tnode *indices[NCOLUMNS];
+
+    for (int i = 0; i < 1; i++) {
         indices[i] = (struct tnode *) malloc(sizeof(struct tnode));
-        struct tnode *index = NULL;
-        while (database != NULL) {
-            index = addtree(index, database);
-            database = database->next;
+        //indices[i]->value = "";
+    }
+
+    while (database != NULL) {
+        for (int i = 0; i < 1; i++) {
+            indices[i] = addtree(indices[i], i, database);
         }
-        indices[i] = index;
+        database = database-> next;
     }
     return indices;
-    //return index;
 }
 
 struct db *lookup(struct tnode *index, char *value) {
@@ -32,4 +40,3 @@ struct db *lookup(struct tnode *index, char *value) {
     } else
         return lookup(index->right, value);
 }
-

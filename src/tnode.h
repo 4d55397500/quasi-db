@@ -10,7 +10,7 @@ struct tnode {
 };
 
 struct tnode *talloc(void);
-struct tnode *addtree(struct tnode *, struct db *);
+struct tnode *addtree(struct tnode *, int col, struct db *);
 void printnode(struct tnode *);
 void walk(struct tnode *, void (*)(struct tnode *));
 void printwalk(struct tnode *);
