@@ -19,7 +19,6 @@ void cleanup(struct db *database, struct tnode **indices, const int *indexcolumn
 
 int main() {
 
-
     // allocate memory for database and indices dynamic objects.
     struct db *database = dballoc();
     // add items to first column, incrementing row
@@ -33,12 +32,18 @@ int main() {
     add(database, "skateboard", 2, 1);
     printdb(database);
 
-    // build indices
-    struct tnode **indices = indicesalloc();
     int indexcolumns[] = {0, 1};
-    for (int i = 0; i < sizeof(indexcolumns)/sizeof(int); i++) {
-        indices[indexcolumns[i]] = talloc();
-        indices[indexcolumns[i]] = addnode(indices[indexcolumns[i]], indexcolumns[i], database);
-    }
+    // build indices
+    struct tnode **indices = buildindices(database, indexcolumns);
+
+
+//    struct tnode **indices = indicesalloc();
+//
+//    for (int i = 0; i < sizeof(indexcolumns)/sizeof(int); i++) {
+//        indices[indexcolumns[i]] = talloc();
+//        indices[indexcolumns[i]] = addnode(indices[indexcolumns[i]], indexcolumns[i], database);
+//    }
     cleanup(database, indices, indexcolumns);
 }
+
+

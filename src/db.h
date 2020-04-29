@@ -5,8 +5,6 @@
 
 struct db {
     char value[NCOLUMNS][MAXSTRINGLENGTH];
-    //char *value;
-    // can add more items to database row ...
     struct db *next;
 };
 

@@ -6,8 +6,12 @@
 #include "tnode.h"
 
 
-struct tnode **indicesalloc() {
-    return (struct tnode **) malloc(NCOLUMNS * sizeof(struct tnode));
+struct tnode **indicesalloc(const int *columns) {
+    struct tnode **indices = (struct tnode **) malloc(NCOLUMNS * sizeof(struct tnode));
+    for (int i = 0; i < sizeof(columns)/sizeof(int); i++) {
+        indices[i] = talloc();
+    }
+    return indices;
 }
 
 /**
@@ -16,9 +20,11 @@ struct tnode **indicesalloc() {
  */
 struct tnode **buildindices(struct db *database,
         const int *columns) {
-    struct tnode **indices = indicesalloc();
+    struct tnode **indices = indicesalloc(columns);
+    while (database != NULL) {
+        database = database->next;
+    }
     return indices;
-
 }
 
 //
