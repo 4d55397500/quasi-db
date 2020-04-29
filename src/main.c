@@ -9,9 +9,9 @@
 int main() {
 
     struct db *database = NULL;
-    database = add(database, "foo");
-    add(database, "bar");
-    add(database, "who");
+    database = addstring(database, "foo");
+    addstring(database, "bar");
+    addstring(database, "who");
 
     struct tnode *index = NULL;
     index = buildindex(database);

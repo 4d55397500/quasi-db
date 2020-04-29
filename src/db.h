@@ -8,7 +8,7 @@ struct db {
 };
 
 struct db *dballoc();
-struct db *add(struct db *, char *);
+struct db *addstring(struct db *database, char *value);
 
 
 #endif

@@ -8,14 +8,14 @@ struct db *dballoc() {
 }
 
 
-struct db *add(struct db *database,
-        char *value) {
+struct db *addstring(struct db *database,
+                     char *value) {
     if (database == NULL) {
         database = dballoc();
         database->value = strdup(value);
         database->next = NULL;
     } else {
-        database->next = add(database->next, value);
+        database->next = addstring(database->next, value);
     }
     return database;
 }
