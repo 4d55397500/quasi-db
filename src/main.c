@@ -29,12 +29,13 @@ int main() {
     // from beginning
     add(database, "bicycle", 0, 1);
     add(database, "kite", 1, 1);
-    add(database, "skateboard", 2, 1);
+    //add(database, "skateboard", 2, 1);
     printdb(database);
 
     int indexcolumns[] = {0, 1};
     // build indices
     struct tnode **indices = buildindices(database, indexcolumns);
+    printindices(indices, indexcolumns);
 
 
 //    struct tnode **indices = indicesalloc();
