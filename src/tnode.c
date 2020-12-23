@@ -9,6 +9,9 @@ struct tnode *talloc(void) {
 }
 
 struct tnode *addtree(struct tnode *p, struct db *rowptr, int col) {
+    if (rowptr->value[col] == NULL) {
+        return NULL;
+    }
     int cond;
     if (p == NULL) {
         p = talloc();

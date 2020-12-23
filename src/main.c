@@ -20,7 +20,7 @@ int main() {
     int k = rand() % m;
     int col = 0;
 
-    printf("Writing to database %d entries ...\n", m);
+    printf("Writing to an %d-column database %d entries ...\n", NCOLS, m);
     for (int row = 0; row < m; row++) {
         for (int j = 0; j < n; j++) {
             s[j] = '0' + rand() % 72;
@@ -29,7 +29,6 @@ int main() {
             key = s;
         }
         col = rand() % NCOLS;
-        printf("%d\n", col);
         if (row == 0) {
             database = add(database, s, row, col);
         } else {
@@ -42,14 +41,15 @@ int main() {
     printf("Printing database ...\n");
     printdb(database);
 
-//    printf("Building index for column %d ...\n", col);
-//    struct tnode *index = NULL;
-//    index = buildindex(database, col);
+    int lookupCol = rand() % NCOLS;
+    printf("Building index for column %d ...\n", lookupCol);
+    struct tnode *colindex = NULL;
+    colindex = buildindex(database, lookupCol);
 
-//    struct db *rowptr;
-//    printf("Looking up key '%s' in index ...\n", key);
-//    rowptr = lookup(index, key);
-//    printf("Retrieved pointer %p from index "
-//           "to db row containing '%s'.\n", rowptr, key);
+    struct db *rowptr;
+    printf("Looking up key '%s' in index ...\n", key);
+    rowptr = lookup(colindex, key);
+    printf("Retrieved pointer %p from index "
+           "to db row containing '%s'.\n", rowptr, key);
 
 }
