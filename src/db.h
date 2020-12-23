@@ -11,6 +11,8 @@ struct db {
 struct db *dballoc();
 struct db *add(struct db *, char *, int, int);
 int dblen(struct db *);
+void save(struct db *, char *);
+struct db *load(char *);
 void printdb(struct db *);
 
 #endif

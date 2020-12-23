@@ -34,6 +34,34 @@ int dblen(struct db *database) {
     return n;
 }
 
+void save(struct db *database, char *filename) {
+    FILE *fp = fopen(filename, "wb");
+    if (!fp)
+        perror("fopen");
+    struct db *rowptr = database;
+    while (rowptr) {
+     fwrite(&rowptr->value, sizeof rowptr->value, 1, fp);
+     rowptr = rowptr->next;
+    }
+    fclose(fp);
+}
+
+struct db *load(char *filename) {
+    FILE *fp = fopen(filename, "rb");
+    struct db *database = dballoc();
+    database->next = NULL;
+    char *value[NCOLS];
+    int row = 0;
+    while (fread(&value, sizeof value, 1, fp)) {
+        for (int col = 0; col < NCOLS; col++) {
+            if (value[col]) {
+                add(database, value[col], row, col);
+            }
+        }
+        row++;
+    }
+    return database;
+}
 
 void printdb(struct db *database) {
     printf("---------\n");
@@ -41,7 +69,7 @@ void printdb(struct db *database) {
     int row = 0;
     while (rowptr != NULL) {
         for (int col = 0; col < NCOLS; col++) {
-           if (rowptr->value[col] != NULL) {
+           if (rowptr->value[col]) {
                printf("%s (row = %d, col = %d) ", rowptr->value[col], row, col);
                printf("\n");
            }
