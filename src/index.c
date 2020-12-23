@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include <string.h>
+#include <stdlib.h>
 #include "db.h"
 #include "tnode.h"
 
@@ -12,6 +13,14 @@ struct tnode *buildindex(struct db *database, int col) {
         rowptr = rowptr-> next;
     }
     return index;
+}
+
+struct tnode **buildall(struct db *database) {
+    struct tnode **indices = (struct tnode **) malloc(sizeof(struct tnode) * NCOLS);
+    for (int col = 0; col < NCOLS; col++) {
+        indices[col] = buildindex(database, col);
+    }
+    return indices;
 }
 
 struct db *lookup(struct tnode *index, char *value) {

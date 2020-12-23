@@ -16,7 +16,7 @@ int main() {
     int n = 6;
     char s[n];
     char *key;
-    int m = 10;
+    int m = 10000;
     int k = rand() % m;
     int col = 0;
 
@@ -39,17 +39,19 @@ int main() {
     int nrows = dblen(database);
     printf("Successfully wrote %d entries.\n", nrows);
     printf("Printing database ...\n");
-    printdb(database);
+    //printdb(database);
 
-    int lookupCol = rand() % NCOLS;
-    printf("Building index for column %d ...\n", lookupCol);
-    struct tnode *colindex = NULL;
-    colindex = buildindex(database, lookupCol);
+    printf("Building indices for all columns ...\n");
+    struct tnode **indices = buildall(database);
 
+    int lookupCol = col;
+    struct tnode *colindex = indices[col];
     struct db *rowptr;
-    printf("Looking up key '%s' in index ...\n", key);
+    printf("Looking up key '%s' in index for column '%d' ...\n", key, col);
     rowptr = lookup(colindex, key);
     printf("Retrieved pointer %p from index "
            "to db row containing '%s'.\n", rowptr, key);
 
+
 }
+

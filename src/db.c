@@ -36,6 +36,7 @@ int dblen(struct db *database) {
 
 
 void printdb(struct db *database) {
+    printf("---------\n");
     struct db *rowptr = database;
     int row = 0;
     while (rowptr != NULL) {
@@ -48,5 +49,5 @@ void printdb(struct db *database) {
         rowptr = rowptr->next;
         row++;
     }
-
+    printf("---------\n");
 }
