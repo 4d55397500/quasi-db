@@ -1,6 +1,6 @@
 #ifndef DB_H_
 #define DB_H_
-#define NCOLS 100
+#define NCOLS 25
 
 struct db {
     char *value[NCOLS];

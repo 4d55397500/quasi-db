@@ -9,7 +9,9 @@ struct tnode *buildindex(struct db *database, int col) {
     struct tnode *index = NULL;
     struct db *rowptr = database;
     while (rowptr != NULL) {
-        index = addtree(index, rowptr, col);
+        if (rowptr->value[col]) {
+            index = addtree(index, rowptr, col);
+        }
         rowptr = rowptr-> next;
     }
     return index;

@@ -13,6 +13,9 @@ struct db *add(struct db *database,
         char *value, int row, int col) {
     if (database == NULL) {
         database = dballoc();
+        for (int i = 0; i < NCOLS; i++){
+            database->value[i] = NULL;
+        }
         database->next = NULL;
     }
     if (row == 0) {
@@ -69,7 +72,7 @@ void printdb(struct db *database) {
     int row = 0;
     while (rowptr != NULL) {
         for (int col = 0; col < NCOLS; col++) {
-           if (rowptr->value[col]) {
+           if (rowptr->value[col] != NULL) {
                printf("%s (row = %d, col = %d) ", rowptr->value[col], row, col);
                printf("\n");
            }
