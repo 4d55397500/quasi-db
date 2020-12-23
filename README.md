@@ -8,7 +8,7 @@ Repository for exploring database concepts and structures in c, loosely explorin
 Database as a linked list and indices as (unbalanced) binary search trees (both in memory).
 A binary search tree facilitates O(lg n) lookup of a key, with which a corresponding 'database row' is accessed directly by way of a pointer.
 
-The linked list can be saved to disk. Upon loading, indices are re-generated.
+The linked list can be saved to disk. Upon loading, indices are rebuilt.
 
 ```c
 Writing to an 25-column database 10000 entries ...
