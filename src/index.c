@@ -4,10 +4,10 @@
 #include "tnode.h"
 
 
-struct tnode *buildindex(struct db *database) {
+struct tnode *buildindex(struct db *database, int col) {
     struct tnode *index = NULL;
     while (database != NULL) {
-        index = addtree(index, database);
+        index = addtree(index, database, col);
         database = database->next;
     }
     return index;

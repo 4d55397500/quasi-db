@@ -8,22 +8,22 @@ struct tnode *talloc(void) {
     return (struct tnode *) malloc(sizeof(struct tnode));
 }
 
-struct tnode *addtree(struct tnode *p, struct db *rowptr) {
+struct tnode *addtree(struct tnode *p, struct db *rowptr, int col) {
     int cond;
     if (p == NULL) {
         p = talloc();
         p->rowptr = rowptr;
-        p->value = strdup(rowptr->value);
+        p->value = strdup(rowptr->value[col]);
         p->left = p->right = NULL;
-    } else if ((cond = strcmp(rowptr->value, p->value)) == 0) {
+    } else if ((cond = strcmp(rowptr->value[col], p->value)) == 0) {
         if (p->rowptr == NULL){ //currently only index the first occurrence of a value
             p->rowptr = rowptr;
         }
     }
     else if (cond < 0)
-        p->left = addtree(p->left, rowptr);
+        p->left = addtree(p->left, rowptr, col);
     else
-        p->right = addtree(p->right, rowptr);
+        p->right = addtree(p->right, rowptr, col);
     return p;
 }
 
